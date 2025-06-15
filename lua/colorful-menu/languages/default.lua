@@ -10,6 +10,7 @@ local M = {}
 function M.default_highlight(completion_item, detail, lang, extra_info_hl)
     extra_info_hl = extra_info_hl or "@comment"
     local label = completion_item.label
+    label = label:gsub("\n", "↲")
     local highlight_name = utils.hl_by_kind(completion_item.kind, lang)
 
     local highlights = {

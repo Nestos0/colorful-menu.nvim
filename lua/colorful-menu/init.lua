@@ -70,6 +70,9 @@ M.config = {
         dartls = {
             extra_info_hl = "@comment",
         },
+        volar = {
+            extra_info_hl = "@comment",
+        },
         fallback = true,
         fallback_extra_info_hl = "@comment",
     },
@@ -148,6 +151,8 @@ local function _highlights(completion_item, ls)
     elseif ls == "basedpyright" or ls == "pyright" or ls == "pylance" or ls == "pylsp" then
         item = require("colorful-menu.languages.python").py(completion_item, ls)
         --
+    elseif ls == "volar" then
+        item = require("colorful-menu.languages.vue").volar(completion_item, ls)
     else
         -- No languages detected so check if we should highlight with default or not
         if not M.config.ls.fallback then
