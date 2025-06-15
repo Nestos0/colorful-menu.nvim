@@ -40,7 +40,7 @@ local function _volar_completion_highlights(completion_item, ls)
     end
 
     return {
-        text = " " + label,
+        text = " " .. label,
         highlight_name = {
             highlight_name,
             range = { 0, 1 },
@@ -53,9 +53,13 @@ end
 ---@return CMHighlights
 function M.volar(completion_item, ls)
     local vim_item = _volar_completion_highlights(completion_item, ls)
+    local function one_line(s)
+        s = s:gsub("\n", "↲")
+        return s
+    end
     if vim_item.text ~= nil then
         local s, e = string.find(vim_item.text, "%b{}")
-        vim_item.text = vim_item.text:gsub("\n", "↲")
+        one_line(vim_item)
         if s ~= nil and e ~= nil then
             table.insert(vim_item.highlights, {
                 config.ls.volar.arguments_hl,
