@@ -4,6 +4,31 @@ local config = require("colorful-menu").config
 
 local M = {}
 
+local function expand_hex(s)
+    s = s:lower()
+    if #s == 4 then
+        return "#" .. s:sub(2,2):rep(2) .. s:sub(3,3):rep(2) .. s:sub(4,4):rep(2)
+    end
+
+    return s
+end
+
+local function is_hex_color(s)
+    if string.match(s, "^#[a-fA-F0-9]%x%x$") then
+        return true
+    end
+
+    if string.match(s, "^#[a-fA-F0-9]%x%x%x%x%x$") then
+        return true
+    end
+
+    if string.match(s, "^#[a-fA-F0-9]%x%x%x%x%x%x%x$") then
+        return true
+    end
+
+    return false
+end
+
 local function _hex_to_rgb(hex)
     -- 去掉 #
     hex = hex:gsub("#", "")
@@ -96,6 +121,10 @@ local function _volar_completion_highlights(completion_item, ls)
             hl = hl_name
             local rgb_fg = rgb_to_hex(label)
             vim.api.nvim_set_hl(0, hl_name, { fg = rgb_fg })
+        elseif is_hex_color(label) then
+            local hl_name = get_unique_highlight_name("ColorMenu")
+            hl = hl_name
+            vim.api.nvim_set_hl(0, hl_name, { fg = expand_hex(label) })
         end
         highlight_name = hl
         return {
