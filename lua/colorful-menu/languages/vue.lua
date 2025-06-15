@@ -41,7 +41,7 @@ local function _volar_completion_highlights(completion_item, ls)
 
     return {
         text = " " .. label,
-        highlight_name = {
+        highlights = {
             highlight_name,
             range = { 0, 1 },
         },
