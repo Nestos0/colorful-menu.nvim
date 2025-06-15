@@ -59,7 +59,7 @@ function M.volar(completion_item, ls)
     end
     if vim_item.text ~= nil then
         local s, e = string.find(vim_item.text, "%b{}")
-        one_line(vim_item)
+        one_line(vim_item.text)
         if s ~= nil and e ~= nil then
             table.insert(vim_item.highlights, {
                 config.ls.volar.arguments_hl,
