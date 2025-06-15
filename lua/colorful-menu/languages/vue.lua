@@ -55,6 +55,7 @@ function M.volar(completion_item, ls)
     local vim_item = _volar_completion_highlights(completion_item, ls)
     if vim_item.text ~= nil then
         local s, e = string.find(vim_item.text, "%b{}")
+        vim_item.text = vim_item.text:gsub("\n", "↲")
         if s ~= nil and e ~= nil then
             table.insert(vim_item.highlights, {
                 config.ls.volar.arguments_hl,
